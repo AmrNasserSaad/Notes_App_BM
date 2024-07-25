@@ -64,7 +64,7 @@ fun HomeScreen(
         LazyColumn(modifier = modifier.padding(top = 60.dp)) {
             items(notes) { note ->
                 NoteListItem(note = note){
-                    navController.navigate("$EDIT_NOTE/${note.id}/${note.noteDetails}")
+                    navController.navigate("$EDIT_NOTE/${note.id}/${note.noteDetails}/${note.noteTitle}")
                 }
             }
         }
@@ -83,6 +83,16 @@ fun NoteListItem(note: Note, modifier: Modifier = Modifier, onNavigate: () -> Un
             .clickable { onNavigate() }
     ) {
         Text(
+            text = note.noteTitle,
+            fontSize = 20.sp,
+            color = Color.DarkGray,
+            textAlign = TextAlign.Justify,
+            modifier = modifier
+                .padding(8.dp)
+                .defaultMinSize(minHeight = 80.dp)
+                .wrapContentHeight(Alignment.CenterVertically)
+        )
+        Text(
             text = note.noteDetails,
             fontSize = 20.sp,
             color = Color.DarkGray,
@@ -98,5 +108,5 @@ fun NoteListItem(note: Note, modifier: Modifier = Modifier, onNavigate: () -> Un
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    NoteListItem(note = Note(5, "Hello this is a test note")){}
+    NoteListItem(note = Note(5, "Hello this is a test note" , "note title")){}
 }
